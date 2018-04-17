@@ -32,16 +32,11 @@ languages = {
 }
 
 def reformat_languages(languages)
-  new_lang = {}
-  languages.each do |oo_f,langs|
+  languages.each_with_object({}) do |(oo_f,langs),new_lang|
     langs.each do |name,data|
       new_lang[name] = {type: data[:type]} if new_lang.has_key?(name) == false
-      if new_lang[name].has_key?(:style)
-        new_lang[name][:style] << oo_f
-      else 
-        new_lang[name][:style] = [oo_f]
-      end
+      new_lang[name][:style] ||= []
+      new_lang[name][:style] << oo_f
     end
   end
-  return new_lang
 end
